@@ -124,13 +124,17 @@ class AwesomeSnackbarContent extends StatelessWidget {
                           ),
 
                           /// `message` body text parameter
-                          Text(
-                            message,
-                            style: TextStyle(
-                              fontSize: size.height * 0.016,
-                              color: Colors.white,
+                          /// Trung updated to add more space between title and message
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
+                            child: Text(
+                              message,
+                              style: TextStyle(
+                                fontSize: size.height * 0.016,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.justify,
                             ),
-                            textAlign: TextAlign.justify,
                           ),
                         ],
                       ),
