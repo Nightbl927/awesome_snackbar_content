@@ -54,25 +54,21 @@ class AwesomeSnackbarContent extends StatelessWidget {
 
     return Row(
       children: [
-        !isMobile
-            ? const Spacer()
-            : SizedBox(
-                width: size.width * 0.01,
-              ),
+        isMobile ? SizedBox(
+          width: size.width * 0.0,
+        ) : isTablet ? SizedBox(
+          width: size.width * 0.05,
+        ) : SizedBox(
+          width: size.width * 0.10,
+        ),
         Expanded(
-          flex: !isDesktop ? 8 : 1,
           child: Stack(
             clipBehavior: Clip.none,
             children: [
               /// SnackBar Body
               Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: isTablet ? size.width * 0.1 : 0,
-                ),
                 padding: EdgeInsets.symmetric(
-                  horizontal: isTablet ? size.width * 0.1 : size.width * 0.05,
-                  vertical:
-                      !isMobile ? size.height * 0.03 : size.height * 0.025,
+                  vertical: !isMobile ? size.height * 0.03 : size.height * 0.025,
                 ),
                 decoration: BoxDecoration(
                   color: color ?? contentType.color,
@@ -80,63 +76,65 @@ class AwesomeSnackbarContent extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    const Spacer(),
                     Expanded(
-                      flex: isMobile ? 8 : 25,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              /// `title` parameter
-                              Expanded(
-                                flex: 3,
-                                child: Text(
-                                  title,
-                                  style: TextStyle(
-                                    fontSize: isTablet || isDesktop
-                                        ? size.height * 0.03
-                                        : size.height * 0.025,
-                                    color: Colors.white,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(size.height * 0.08, 0.0, 16.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                /// `title` parameter
+                                Expanded(
+                                  flex: 3,
+                                  child: Text(
+                                    title,
+                                    style: TextStyle(
+                                      fontSize: isTablet || isDesktop
+                                          ? 20.0
+                                          : 16.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
 
-                              InkWell(
-                                onTap: () {
-                                  if (inMaterialBanner) {
-                                    ScaffoldMessenger.of(context)
-                                        .hideCurrentMaterialBanner();
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                        .hideCurrentSnackBar();
-                                  }
-                                },
-                                child: SvgPicture.asset(
-                                  AssetsPath.failure,
-                                  height: size.height * 0.022,
-                                  package: 'awesome_snackbar_content',
+                                InkWell(
+                                  onTap: () {
+                                    if (inMaterialBanner) {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentMaterialBanner();
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                    }
+                                  },
+                                  child: SvgPicture.asset(
+                                    AssetsPath.failure,
+                                    height: size.height * 0.022,
+                                    package: 'awesome_snackbar_content',
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-
-                          /// `message` body text parameter
-                          /// Trung updated to add more space between title and message
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
-                            child: Text(
-                              message,
-                              style: TextStyle(
-                                fontSize: size.height * 0.016,
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.justify,
+                              ],
                             ),
-                          ),
-                        ],
+
+                            /// `message` body text parameter
+                            /// Trung updated to add more space between title and message
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
+                              child: Text(
+                                message,
+                                style: TextStyle(
+                                  fontSize: size.height * 0.016,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.justify,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -146,7 +144,6 @@ class AwesomeSnackbarContent extends StatelessWidget {
               /// other SVGs in body
               Positioned(
                 bottom: 0,
-                left: isTablet ? size.width * 0.1 : 0,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(20),
@@ -163,7 +160,7 @@ class AwesomeSnackbarContent extends StatelessWidget {
 
               Positioned(
                 top: -size.height * 0.02,
-                left: isTablet ? size.width * 0.125 : size.width * 0.02,
+                left: size.width * 0.02,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -187,11 +184,13 @@ class AwesomeSnackbarContent extends StatelessWidget {
             ],
           ),
         ),
-        !isMobile
-            ? const Spacer()
-            : SizedBox(
-                width: size.width * 0.01,
-              ),
+        isMobile ? SizedBox(
+          width: size.width * 0.0,
+        ) : isTablet ? SizedBox(
+          width: size.width * 0.05,
+        ) : SizedBox(
+          width: size.width * 0.10,
+        ),
       ],
     );
   }
