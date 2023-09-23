@@ -30,6 +30,12 @@ class AwesomeSnackbarContent extends StatelessWidget {
   /// if you want to use this in materialBanner
   final bool inMaterialBanner;
 
+  // if you have an action
+  final void Function()? action;
+
+  // action label
+  final String actionLabel;
+
   const AwesomeSnackbarContent({
     Key? key,
     this.color,
@@ -37,6 +43,8 @@ class AwesomeSnackbarContent extends StatelessWidget {
     required this.message,
     required this.contentType,
     this.inMaterialBanner = false,
+    this.action,
+    this.actionLabel = "",
   }) : super(key: key);
 
   @override
@@ -122,7 +130,7 @@ class AwesomeSnackbarContent extends StatelessWidget {
 
                             /// `message` body text parameter
                             /// Trung updated to add more space between title and message
-                            Padding(
+                            actionLabel == "" || action == null ? Padding(
                               padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
                               child: Text(
                                 message,
@@ -130,6 +138,41 @@ class AwesomeSnackbarContent extends StatelessWidget {
                                   fontSize: size.height * 0.016,
                                   color: Colors.white,
                                 ),
+                              ),
+                            ) : Padding(
+                              padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    message,
+                                    style: TextStyle(
+                                      fontSize: size.height * 0.016,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 0.0),
+                                    child: OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                        shape: StadiumBorder(),
+                                        side: BorderSide(
+                                          width: 1,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      onPressed: action != null ? action! : () {print('no action provided');},
+                                      child: Text(
+                                        actionLabel,
+                                        style: TextStyle(
+                                          fontSize: size.height * 0.016,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           ],
